@@ -12,7 +12,7 @@ export default [
     ignores: [
       'node_modules/**',
       'dist/**',
-      'de.perdoctus.streamdeck.homeassistant.sdPlugin/**',
+      'uk.co.andypc.streamdeck.sdrconnect.sdPlugin/**',
       'logs/**',
       '.eslintrc.cjs'
     ]

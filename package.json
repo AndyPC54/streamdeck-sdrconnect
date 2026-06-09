@@ -1,13 +1,13 @@
 {
-  "name": "streamdeck-homeassistant-vue",
+  "name": "streamdeck-sdrconnect-vue",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "scripts": {
     "build": "vite build",
-    "validate": "streamdeck validate --no-update-check ./de.perdoctus.streamdeck.homeassistant.sdPlugin",
+    "validate": "streamdeck validate --no-update-check ./uk.co.andypc.streamdeck.sdrconnect.sdPlugin",
     "build-dev": "vite build --watch --sourcemap inline --minify false",
-    "bundle": "streamdeck bundle --no-update-check ./de.perdoctus.streamdeck.homeassistant.sdPlugin",
+    "bundle": "streamdeck bundle --no-update-check ./uk.co.andypc.streamdeck.sdrconnect.sdPlugin",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix",
     "format": "prettier --write src/"
   },

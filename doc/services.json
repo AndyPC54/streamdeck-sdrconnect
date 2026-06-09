@@ -66,7 +66,7 @@
         }
       }
     },
-    "homeassistant": {
+    "sdrconnect": {
       "save_persistent_states": {
         "name": "Save Persistent States",
         "description": "Save the persistent states (for entities derived from RestoreEntity) immediately. Maintain the normal periodic saving interval.",

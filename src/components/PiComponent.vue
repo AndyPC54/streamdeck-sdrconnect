@@ -326,7 +326,7 @@
 import defaultManifest from '../../public/config/manifest.yml'
 import { StreamDeck } from '@/modules/common/streamdeck'
 import { Settings } from '@/modules/common/settings'
-import { Homeassistant } from '@/modules/homeassistant/homeassistant'
+import { Sdrconnect } from '@/modules/sdrconnect/sdrconnect'
 import { Entity } from '@/modules/pi/entity'
 import { Service } from '@/modules/pi/service'
 import { computed, onMounted, ref } from 'vue'
@@ -340,7 +340,7 @@ import yaml from 'js-yaml'
 
 let manifest = ref(defaultManifest)
 
-let $HA = null
+let $Sdrconnect = null
 let $SD = null
 
 const serverUrl = ref('')
@@ -408,7 +408,7 @@ onMounted(() => {
         }
 
         if (serverUrl.value && accessToken.value) {
-          connectHomeAssistant()
+          connectSdrconnect()
         }
       }
     })
@@ -460,20 +460,20 @@ const entityAttributes = computed(() => {
   return []
 })
 
-function connectHomeAssistant() {
-  if ($HA) {
-    $HA.close()
+function connectSdrconnect() {
+  if ($Sdrconnect) {
+    $Sdrconnect.close()
   }
 
   haConnectionState.value = 'connecting'
 
   try {
-    $HA = new Homeassistant(
+    $Sdrconnect = new Sdrconnect(
       serverUrl.value,
       accessToken.value,
       () => {
         haConnectionState.value = 'connected'
-        $HA.getStates((states) => {
+        $Sdrconnect.getStates((states) => {
           availableEntityDomains.value = Array.from(
             states
               .map((state) => state.entity_id.split('.')[0])
@@ -504,7 +504,7 @@ function connectHomeAssistant() {
             }
           })
         })
-        $HA.getServices((services) => {
+        $Sdrconnect.getServices((services) => {
           availableServices.value = Object.entries(services).flatMap((domainServices) => {
             const domain = domainServices[0]
             return Object.entries(domainServices[1]).map((services) => {
@@ -551,7 +551,7 @@ function saveGlobalSettings() {
     displayConfiguration: displayConfigurationsSettings
   })
 
-  connectHomeAssistant()
+  connectSdrconnect()
 }
 
 function saveSettings() {

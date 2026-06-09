@@ -1,7 +1,7 @@
 import { Action } from '@/modules/sdrconnect/actions/action'
 
 /**
- * ServiceAction, extending Action, facilitates interactions with HomeAssistant services.
+ * ServiceAction, extending Action, facilitates interactions with Sdrconnect services.
  */
 export class ServiceAction extends Action {
   /**

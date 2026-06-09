@@ -39,6 +39,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./de.perdoctus.streamdeck.homeassistant.streamDeckPlugin
-          asset_name: de.perdoctus.streamdeck.homeassistant.streamDeckPlugin
+          asset_path: ./uk.co.andypc.streamdeck.sdrconnect.streamDeckPlugin
+          asset_name: uk.co.andypc.streamdeck.sdrconnect.streamDeckPlugin
           asset_content_type: application/zip

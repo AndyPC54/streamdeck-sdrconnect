@@ -23,7 +23,7 @@ export default defineConfig({
     }
   },
   build: {
-    outDir: 'de.perdoctus.streamdeck.homeassistant.sdPlugin',
+    outDir: 'uk.co.andypc.streamdeck.sdrconnect.sdPlugin',
     rollupOptions: {
       input: {
         pi: 'pi.html',
