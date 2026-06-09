@@ -1,12 +1,12 @@
-import { Command } from '@/modules/homeassistant/commands/command'
-import { Action } from '@/modules/homeassistant/actions/action'
+import { Command } from '@/modules/sdrconnect/commands/command'
+import { Action } from '@/modules/sdrconnect/actions/action'
 
 /**
  * CallExecuteScriptCommand
  *
  * Facilitates the execution of multiple actions, including service calls, in a single command. This command
  * is a substantial improvement over the "call_service" command, as it incorporates and evaluates Jinja templates.
- * This enhancement enables more dynamic and context-sensitive operations within HomeAssistant.
+ * This enhancement enables more dynamic and context-sensitive operations within SDRConnect.
  */
 export class ExecuteScriptCommand extends Command {
   /**

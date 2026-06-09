@@ -1,4 +1,4 @@
-import { Action } from '@/modules/homeassistant/actions/action'
+import { Action } from '@/modules/sdrconnect/actions/action'
 
 /**
  * ServiceAction, extending Action, facilitates interactions with HomeAssistant services.

@@ -1,8 +1,8 @@
-import { Command } from '@/modules/homeassistant/commands/command'
+import { Command } from '@/modules/sdrconnect/commands/command'
 
 /**
  * The SubscribeEventCommand class, a subclass of Command, specifically handles
- * subscription to event types in HomeAssistant.
+ * subscription to event types in SDRConnect.
  */
 export class SubscribeEventsCommand extends Command {
   /**

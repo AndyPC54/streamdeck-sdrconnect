@@ -1,8 +1,8 @@
-import { Command } from '@/modules/homeassistant/commands/command'
+import { Command } from '@/modules/sdrconnect/commands/command'
 
 /**
  * The GetStatesCommand class, a subclass of Command, handles the retrieval of
- * state information from HomeAssistant.
+ * state information from SDRConnect.
  */
 export class GetStatesCommand extends Command {
   /**

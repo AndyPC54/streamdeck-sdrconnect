@@ -1,10 +1,10 @@
-import { ServiceAction } from '@/modules/homeassistant/actions/service-action'
-import { ExecuteScriptCommand } from '@/modules/homeassistant/commands/execute-script-command'
-import { SubscribeEventsCommand } from '@/modules/homeassistant/commands/subscribe-events-command'
-import { GetStatesCommand } from '@/modules/homeassistant/commands/get-states-command'
-import { GetServicesCommand } from '@/modules/homeassistant/commands/get-services-command'
+import { ServiceAction } from '@/modules/sdrconnect/actions/service-action'
+import { ExecuteScriptCommand } from '@/modules/sdrconnect/commands/execute-script-command'
+import { SubscribeEventsCommand } from '@/modules/sdrconnect/commands/subscribe-events-command'
+import { GetStatesCommand } from '@/modules/sdrconnect/commands/get-states-command'
+import { GetServicesCommand } from '@/modules/sdrconnect/commands/get-services-command'
 
-export class Homeassistant {
+export class SDRConnect {
   constructor(url, accessToken, onReady, onError, onClose) {
     this.requests = new Map()
     this.requestIdSequence = 1
@@ -108,7 +108,7 @@ export class Homeassistant {
       this.requests.set(command.id, callback)
     }
 
-    console.log(`Sending HomeAssistant command:\n ${JSON.stringify(command, null, 2)}`)
+    console.log(`Sending sdrconnect command:\n ${JSON.stringify(command, null, 2)}`)
     this.websocket.send(JSON.stringify(command))
   }
 

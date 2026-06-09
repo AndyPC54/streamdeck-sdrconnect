@@ -1,8 +1,8 @@
-import { Command } from '@/modules/homeassistant/commands/command'
+import { Command } from '@/modules/sdrconnect/commands/command'
 
 /**
  * The GetServicesCommand class, a subclass of Command, is used for requesting
- * service information from HomeAssistant.
+ * service information from SDRConnect.
  */
 export class GetServicesCommand extends Command {
   /**

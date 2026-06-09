@@ -12,7 +12,7 @@
         }
       ],
       "SupportedInMultiActions": true,
-      "UUID": "de.perdoctus.streamdeck.homeassistant.entity",
+      "UUID": "uk.co.andypc.streamdeck.sdrconnect.entity",
       "Controllers": ["Keypad", "Encoder"],
       "Encoder": {
         "layout": "$A0",
@@ -38,20 +38,20 @@
         }
       ],
       "SupportedInMultiActions": true,
-      "UUID": "de.perdoctus.streamdeck.homeassistant.dual-state-entity"
+      "UUID": "uk.co.andypc.streamdeck.sdrconnect.dual-state-entity"
     }
   ],
-  "UUID": "de.perdoctus.streamdeck.homeassistant",
-  "Category": "Home Assistant",
+  "UUID": "uk.co.andypc.streamdeck.sdrconnect",
+  "Category": "SDRConnect",
   "CategoryIcon": "images/category",
   "SDKVersion": 2,
-  "Author": "Christoph Giesche",
+  "Author": "Andy Curtis",
   "CodePath": "plugin.html",
-  "Description": "Control your Home Assistant entities with stream deck.",
-  "Name": "Home Assistant",
+  "Description": "Control your SDRConnect entities with stream deck.",
+  "Name": "SDRConnect Plugin",
   "Icon": "images/plugin/plugin",
-  "URL": "https://github.com/cgiesche/streamdeck-homeassistant",
-  "Version": "100.2.1.1",
+  "URL": "https://github.com/AndyPC54/streamdeck-sdrconnect",
+  "Version": "0.1.0.0",
   "OS": [
     {
       "Platform": "mac",
@@ -64,6 +64,6 @@
   ],
   "Software":
   {
-    "MinimumVersion" : "6.4"
+    "MinimumVersion" : "7.1"
   }
 }
