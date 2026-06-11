@@ -1,6 +1,6 @@
 /**
  * The Command class acts as an abstract base class for creating commands
- * that can be used to interact with the HomeAssistant WebSocket API.
+ * that can be used to interact with the SDRConnect WebSocket API.
  */
 export class Command {
   /**
