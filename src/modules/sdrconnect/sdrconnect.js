@@ -108,7 +108,7 @@ export class SDRConnect {
       this.requests.set(command.id, callback)
     }
 
-    console.log(`Sending sdrconnect command:\n ${JSON.stringify(command, null, 2)}`)
+    console.log(`Sending SDRconnect command:\n ${JSON.stringify(command, null, 2)}`)
     this.websocket.send(JSON.stringify(command))
   }
 

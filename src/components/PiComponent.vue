@@ -326,7 +326,7 @@
 import defaultManifest from '../../public/config/manifest.yml'
 import { StreamDeck } from '@/modules/common/streamdeck'
 import { Settings } from '@/modules/common/settings'
-import { Sdrconnect } from '@/modules/sdrconnect/sdrconnect'
+import { SDRConnect } from '@/modules/sdrconnect/sdrconnect'
 import { Entity } from '@/modules/pi/entity'
 import { Service } from '@/modules/pi/service'
 import { computed, onMounted, ref } from 'vue'
@@ -340,7 +340,7 @@ import yaml from 'js-yaml'
 
 let manifest = ref(defaultManifest)
 
-let $Sdrconnect = null
+let $SDR = null
 let $SD = null
 
 const serverUrl = ref('')
@@ -408,7 +408,7 @@ onMounted(() => {
         }
 
         if (serverUrl.value && accessToken.value) {
-          connectSdrconnect()
+          connectSDRConnect()
         }
       }
     })
@@ -460,20 +460,20 @@ const entityAttributes = computed(() => {
   return []
 })
 
-function connectSdrconnect() {
-  if ($Sdrconnect) {
-    $Sdrconnect.close()
+function connectSDRConnect() {
+  if ($SDR) {
+    $SDR.close()
   }
 
-  haConnectionState.value = 'connecting'
+  sdrConnectionState.value = 'connecting'
 
   try {
-    $Sdrconnect = new Sdrconnect(
+    $SDR = new SDRConnect(
       serverUrl.value,
       accessToken.value,
       () => {
-        haConnectionState.value = 'connected'
-        $Sdrconnect.getStates((states) => {
+        sdrConnectionState.value = 'connected'
+        $SDR.getStates((states) => {
           availableEntityDomains.value = Array.from(
             states
               .map((state) => state.entity_id.split('.')[0])
@@ -504,7 +504,7 @@ function connectSdrconnect() {
             }
           })
         })
-        $Sdrconnect.getServices((services) => {
+        $SDR.getServices((services) => {
           availableServices.value = Object.entries(services).flatMap((domainServices) => {
             const domain = domainServices[0]
             return Object.entries(domainServices[1]).map((services) => {
@@ -517,21 +517,21 @@ function connectSdrconnect() {
         })
       },
       (message) => {
-        haError.value = message
-        haConnectionState.value = 'disconnected'
+        sdrError.value = message
+        sdrConnectionState.value = 'disconnected'
       },
       () => {
-        haConnectionState.value = 'disconnected'
+        sdrConnectionState.value = 'disconnected'
       }
     )
   } catch (e) {
-    haError.value = e
-    haConnectionState.value = 'disconnected'
+    sdrError.value = e
+    sdrConnectionState.value = 'disconnected'
   }
 }
 
 function saveGlobalSettings() {
-  haError.value = ''
+  sdrError.value = ''
 
   let displayConfigurationsSettings = displayConfiguration.value
 
@@ -540,7 +540,7 @@ function saveGlobalSettings() {
     axios
       .get(displayConfigurationUrlOverride.value)
       .then()
-      .catch((error) => (haError.value = `Could not read custom display configuration: ${error}`))
+      .catch((error) => (sdrError.value = `Could not read custom display configuration: ${error}`))
 
     displayConfigurationsSettings.urlOverride = displayConfigurationUrlOverride.value
   }
@@ -551,7 +551,7 @@ function saveGlobalSettings() {
     displayConfiguration: displayConfigurationsSettings
   })
 
-  connectSdrconnect()
+  connectSDRConnect()
 }
 
 function saveSettings() {

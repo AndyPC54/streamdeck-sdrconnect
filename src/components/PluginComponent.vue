@@ -4,7 +4,7 @@
 
 <script setup>
 import { StreamDeck } from '@/modules/common/streamdeck'
-import { Sdrconnectnt } from '@/modules/sdrconnect/sdrconnect'
+import { SDRConnect } from '@/modules/sdrconnect/sdrconnect'
 import { SvgUtils } from '@/modules/plugin/svgUtils'
 import nunjucks from 'nunjucks'
 import { Settings } from '@/modules/common/settings'
