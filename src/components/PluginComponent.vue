@@ -18,7 +18,7 @@ let entityConfigFactory
 const svgUtils = new SvgUtils()
 
 const $SD = ref(null)
-const $HA = ref(null)
+const $SDR = ref(null)
 const $reconnectTimeout = ref({})
 const globalSettings = ref({})
 const actionSettings = ref([])
@@ -41,7 +41,7 @@ onMounted(async () => {
         inGlobalSettings.displayConfiguration?.urlOverride ||
           inGlobalSettings.displayConfiguration?.url
       )
-      connectHomeAssistant()
+      connectSDRConnect()
     })
 
     $SD.value.on('connected', () => {
@@ -61,8 +61,8 @@ onMounted(async () => {
       rotationAmount[context] = 0
       rotationPercent[context] = 0
       actionSettings.value[context] = Settings.parse(message.payload.settings)
-      if ($HA.value) {
-        $HA.value.getStatesDebounced(entityStatesChanged)
+      if ($SDR.value) {
+        $SDR.value.getStatesDebounced(entityStatesChanged)
       }
     })
 
@@ -122,8 +122,8 @@ onMounted(async () => {
       let context = message.context
       rotationAmount[context] = 0
       actionSettings.value[context] = Settings.parse(message.payload.settings)
-      if ($HA.value) {
-        $HA.value.getStatesDebounced(entityStatesChanged)
+      if ($SDR.value) {
+        $SDR.value.getStatesDebounced(entityStatesChanged)
       }
     })
   }
@@ -144,14 +144,14 @@ async function fetchActiveStates() {
   }
 }
 
-function connectHomeAssistant() {
-  console.log('Connecting to Home Assistant')
+function connectSDRConnect() {
+  console.log('Connecting to SDRConnect')
   if (globalSettings.value.serverUrl && globalSettings.value.accessToken) {
-    if ($HA.value) {
-      $HA.value.close()
+    if ($SDR.value) {
+      $SDR.value.close()
     }
-    console.log('Connecting to Home Assistant ' + globalSettings.value.serverUrl)
-    $HA.value = new Homeassistant(
+    console.log('Connecting to SDRConnect ' + globalSettings.value.serverUrl)
+    $SDR.value = new SDRConnect(
       globalSettings.value.serverUrl,
       globalSettings.value.accessToken,
       onHAConnected,
@@ -162,22 +162,22 @@ function connectHomeAssistant() {
 }
 
 const onHAConnected = () => {
-  $HA.value.getStatesDebounced(entityStatesChanged)
-  $HA.value.subscribeEvents(entityStateChanged)
+  $SDR.value.getStatesDebounced(entityStatesChanged)
+  $SDR.value.subscribeEvents(entityStateChanged)
 }
 
 function onHAError(msg) {
   showAlert()
-  console.log(`Home Assistant connection error: ${msg}`)
+  console.log(`SDRConnect connection error: ${msg}`)
   window.clearTimeout($reconnectTimeout)
-  $reconnectTimeout.value = window.setTimeout(connectHomeAssistant, 5000)
+  $reconnectTimeout.value = window.setTimeout(connectSDRConnect, 5000)
 }
 
 function onHAClosed(msg) {
   showAlert()
-  console.log(`Home Assistant connection closed, trying to reopen connection: ${msg}`)
+  console.log(`SDRConnect connection closed, trying to reopen connection: ${msg}`)
   window.clearTimeout($reconnectTimeout)
-  $reconnectTimeout.value = window.setTimeout(connectHomeAssistant, 5000)
+  $reconnectTimeout.value = window.setTimeout(connectSDRConnect, 5000)
 }
 
 function showAlert() {
@@ -364,7 +364,7 @@ function buttonLongPress(context) {
 }
 
 function callService(context, serviceToCall, serviceDataAttributes = {}) {
-  if ($HA.value) {
+  if ($SDR.value) {
     if (serviceToCall['serviceId']) {
       try {
         const serviceIdParts = serviceToCall.serviceId.split('.')
@@ -378,7 +378,7 @@ function callService(context, serviceToCall, serviceDataAttributes = {}) {
           serviceData = JSON.parse(renderedServiceData)
         }
 
-        $HA.value.callService(
+        $SDR.value.callService(
           serviceIdParts[1],
           serviceIdParts[0],
           serviceToCall.entityId,
