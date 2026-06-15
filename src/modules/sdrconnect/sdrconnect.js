@@ -71,7 +71,8 @@ export class SDRConnect {
       access_token: this.accessToken
     }
 
-    this.websocket.send(JSON.stringify(authMessage))
+   //apc this.websocket.send(JSON.stringify(authMessage))
+   //
   }
 
   getStatesDebounced(callback) {

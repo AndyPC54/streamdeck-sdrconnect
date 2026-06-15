@@ -7,7 +7,7 @@
         <input id="serverUrl" v-model="serverUrl" class="form-control form-control-sm" type="url" />
         <div class="form-text"><strong>Without SSL</strong> ws://localhost:8123/api/websocket</div>
         <div class="form-text">
-          <strong>With SSL</strong> wss://ha.mydomain.net:8123/api/websocket (requires a trusted
+          <strong>With SSL</strong> wss://localhost.mydomain.net:8123/api/websocket (requires a trusted
           certificate)
         </div>
       </div>
@@ -71,31 +71,31 @@
         </div>
       </div>
 
-      <div v-if="haError" class="alert alert-danger alert-dismissible" role="alert">
-        {{ haError }}
-        <button class="btn-close" type="button" @click="haError = ''"></button>
+      <div v-if="sdrError" class="alert alert-danger alert-dismissible" role="alert">
+        {{ sdrError }}
+        <button class="btn-close" type="button" @click="sdrError = ''"></button>
       </div>
 
       <button
-        :disabled="!isHaSettingsComplete || haConnectionState === 'connecting'"
+        :disabled="!isSdrSettingsComplete || sdrConnectionState === 'connecting'"
         class="btn btn-sm btn-primary float-end"
         v-on:click="saveGlobalSettings"
       >
         <span
-          v-if="haConnectionState === 'connecting'"
+          v-if="sdrConnectionState === 'connecting'"
           aria-hidden="true"
           class="spinner-border spinner-border-sm"
           role="status"
         ></span>
         <span>{{
-          haConnectionState === 'connected' ? 'Save and reconnect' : 'Save and connect'
+          sdrConnectionState === 'connected' ? 'Save and reconnect' : 'Save and connect'
         }}</span>
       </button>
     </div>
 
     <!-- ======================================================================================================= -->
 
-    <div v-if="haConnectionState === 'connected'" class="clearfix mb-3">
+    <div v-if="sdrConnectionState === 'connected'" class="clearfix mb-3">
       <h1>{{ controllerType }} appearance</h1>
 
       <EntitySelection
@@ -370,8 +370,8 @@ const availableEntities = ref([])
 const availableServiceDomains = ref([])
 const availableServices = ref([])
 const currentStates = ref([])
-const haConnectionState = ref('disconnected') // disconnected, connecting, connected
-const haError = ref('')
+const sdrConnectionState = ref('disconnected') // disconnected, connecting, connected
+const sdrError = ref('')
 
 const controllerType = ref('')
 
@@ -391,7 +391,7 @@ onMounted(() => {
     const inActionInfoObject = JSON.parse(inActionInfo)
 
     useStateImagesForOnOffStates.value =
-      inActionInfoObject['action'] === 'de.perdoctus.streamdeck.homeassistant.dual-state-entity'
+      inActionInfoObject['action'] === 'uk.co.andypc.streamdeck.sdrconnect.dual-state-entity'
     controllerType.value = inActionInfoObject.payload.controller
 
     $SD.on('globalsettings', (globalSettings) => {
@@ -447,7 +447,7 @@ function updateManifest() {
     .catch((error) => console.log(`Failed to download updated manifest.yml: ${error}`))
 }
 
-const isHaSettingsComplete = computed(() => {
+const isSdrSettingsComplete = computed(() => {
   return serverUrl.value && accessToken.value
 })
 
